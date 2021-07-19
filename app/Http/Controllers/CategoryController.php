@@ -14,6 +14,9 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate(
+            ['category_name'=>'required']
+        );
         $categoryObj = new Category;
         $categoryObj->category_name = $request->category_name;
         if (Category::where('category_name', '=', $request->category_name)->exists()) {
@@ -41,7 +44,7 @@ class CategoryController extends Controller
         if (Category::where('category_name', '=', $request->category_name)->exists()) {
             return response()->json(false);
          }else{
-            $categoryObj->save();
+            $category->save();
             return response()->json(true);
          }
     }

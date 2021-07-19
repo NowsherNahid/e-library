@@ -22,7 +22,7 @@ Route::post('/update-category/{id}', [CategoryController::class , 'update']);
 Route::get('/delete-category/{id}', [CategoryController::class, 'destroy']);
 
 // AUTHOR ROUTES
-Route::get('/categories', [AuthorController::class, 'index']);
+Route::get('/authors', [AuthorController::class, 'index']);
 Route::post('/add-authors', [AuthorController::class , 'store']);
 Route::get('/edit-author/{id}', [AuthorController::class , 'edit']);
 Route::post('/update-author/{id}', [AuthorController::class , 'update']);

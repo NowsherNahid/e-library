@@ -24,6 +24,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{URL::to('authors')}}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Author</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
           <i class="link-icon" data-feather="mail"></i>
           <span class="link-title">Email</span>

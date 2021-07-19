@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 @section('content')
 
@@ -6,7 +5,7 @@
 
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
+            <li class="breadcrumb-item"><a href="#">Author</a></li>
         </ol>
     </nav>
     
@@ -14,12 +13,12 @@
         <div class="col-md-5 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Add Category</h6>
-                    <form class="forms-sample" id="add-category-form">
+                    <h6 class="card-title">Add Author</h6>
+                    <form class="forms-sample" id="add-author-form">
                         @csrf
                         <div class="form-group">
-                            <label for="category-name">Category Name</label>
-                            <input type="text" name="category_name" class="form-control" placeholder="Enter category name">
+                            <label for="author-name">Author Name</label>
+                            <input type="text" name="author_name" class="form-control" placeholder="Enter author name">
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     </form>
@@ -30,7 +29,7 @@
         <div class="col-md-7 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h6 class="card-title">All Categories</h6>
+                <h6 class="card-title">All Authors</h6>
                 <div class="table-responsive">
                   <table id="dataTableExample" class="table">
                     <thead>
@@ -42,15 +41,15 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($categories as $category)
+                    @foreach ($authors as $author)
                       <tr>
                         <td>{{ $counter++ }}</td>
-                        <td>{{ $category->category_name }}</td>
+                        <td>{{ $author->author_name }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#exampleModal" onclick="edit_data('{{ $category->id }}')">
+                            <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#exampleModal" onclick="edit_data('{{ $author->id }}')">
 								              <i data-feather="edit"></i>
 							              </button>
-                            <button type="button" class="btn btn-danger btn-icon" onclick="delete_row('{{ $category->id }}')">
+                            <button type="button" class="btn btn-danger btn-icon" onclick="delete_row('{{ $author->id }}')">
                               <i data-feather="trash"></i>
                             </button>
                         </td>
@@ -71,12 +70,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Author</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="update-category-form">
+      <form id="update-author-form">
         @csrf
         <div class="modal-body">
             {{-- content here --}}
@@ -91,24 +90,24 @@
 </div>
 
 <script>
-    // Insert category
-    $("#add-category-form").submit(function(e) {
+    // Insert author
+    $("#add-author-form").submit(function(e) {
       e.preventDefault();
       var formData = new FormData(this);
       $.ajax({
-        url: '/add-categories',
+        url: '/add-authors',
         type: 'POST',
         dataType: 'json',
         data: formData,
         success: function(data) {
           if (data == true) {
-            Swal.fire("Done!", "Category added!", "success");
+            Swal.fire("Done!", "Author added!", "success");
             window.setTimeout(function() {
               location.reload()
             }, 1000); 
           } 
           else{
-            Swal.fire("Error!", "Category already exists!", "error");
+            Swal.fire("Error!", "Author already exists!", "error");
           }  
         },
         cache: false,
@@ -117,10 +116,10 @@
       });
     });
 
-    // Edit category
+    // Edit author
     function edit_data(id){
       $.ajax({
-        url: '/edit-category/'+id,
+        url: '/edit-author/'+id,
         type: 'GET',
         success: function(data) {
           if (data != "") {
@@ -133,25 +132,25 @@
       });
     }
 
-    // Update category
-    $("#update-category-form").submit(function(e) {
+    // Update author
+    $("#update-author-form").submit(function(e) {
       e.preventDefault();
-      var categoryID = $('#edit-category-id').val();
+      var authorID = $('#edit-author-id').val();
       var formData = new FormData(this);
       $.ajax({
-        url: '/update-category/'+categoryID,
+        url: '/update-author/'+authorID,
         type: 'POST',
         dataType: 'json',
         data: formData,
         success: function(data) {
           if (data == true) {
-            Swal.fire("Done!", "Category updated!", "success");
+            Swal.fire("Done!", "Author updated!", "success");
             window.setTimeout(function() {
               location.reload()
             }, 1000); 
           } 
           else {
-            Swal.fire("Error!", "Category already exists!", "error");
+            Swal.fire("Error!", "Author already exists!", "error");
           }  
         },
         cache: false,
@@ -160,7 +159,7 @@
       });
     });
 
-    // Delete category
+    // Delete author
     function delete_row(id){
       Swal.fire({
         title: 'Are you sure?',
@@ -173,12 +172,12 @@
 		  }).then((result) => {
         if (result.value) {
           $.ajax({
-            url: '/delete-category/'+id,
+            url: '/delete-author/'+id,
             crossDomain: true,
             cache: false,
             success: function(data) {
               if (data == true) {
-                  Swal.fire("Done!", "Category deleted!", "success");
+                  Swal.fire("Done!", "Author deleted!", "success");
                   window.setTimeout(function() {
                   location.reload()
                   }, 1000); 
